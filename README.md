@@ -7,7 +7,7 @@ This fixes that and also makes it work for all Discord versions.
 
 ## Demo
 
-![Demo GIF of the improved installer](./installer/demo.gif)
+[![asciicast](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot.svg)](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot)
 
 ### TLDW
 
