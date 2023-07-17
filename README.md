@@ -7,7 +7,7 @@ This fixes that and also makes it work for all Discord versions.
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot.svg)](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot)
+[![asciicast](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot.svg)](https://asciinema.org/a/594421?autoplay=1)
 
 ### TLDW
 
