@@ -7,7 +7,7 @@ This fixes that and also makes it work for all Discord versions.
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/Hr6o4z5O2AMEZKnTTPQenpOot.svg)](https://asciinema.org/a/594421?autoplay=1)
+[![asciicast SVG preview](/installer/demoWin.svg)](https://asciinema.org/a/594421?autoplay=1 "Click to have more features like chapters, better display and pausing")
 
 ### TLDW
 
