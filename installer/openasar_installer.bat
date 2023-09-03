@@ -6,7 +6,7 @@ setlocal enabledelayedexpansion
 rem lil animation, can be skipped by pressing any key 3 times
 cls
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo.
 echo ####  ###  #### #   #      ##  ####  ##  ###  
 echo #  #  #  # #    ##  #     #  # #    #  # #  # 
@@ -17,7 +17,7 @@ echo.
 C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
 cls
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo.
 echo ====  ===  ==== =   =      ==  ====  ==  ===  
 echo =  =  =  = =    ==  =     =  = =    =  = =  = 
@@ -28,7 +28,7 @@ echo.
 C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
 cls
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo.
 echo ....  ...  .... .   .      ..  ....  ..  ...  
 echo .  .  .  . .    ..  .     .  . .    .  . .  . 
@@ -140,7 +140,7 @@ if errorlevel 1 (
 rem Download OpenAsar, change the color so the download bar blends in
 color 36
 echo 2. Downloading OpenAsar
-powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile \"%localappdata%\%discordApp%\app-%version%\resources\app.asar\"" > nul 2> nul
+powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.asar"" > nul 2> nul
 
 if exist "%localappdata%\%discordApp%\app-%version%\resources\_app.asar" (
     copy "%localappdata%\%discordApp%\app-%version%\resources\app.asar" "%localappdata%\%discordApp%\app-%version%\resources\_app.asar"
