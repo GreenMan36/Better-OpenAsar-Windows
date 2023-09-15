@@ -41,7 +41,7 @@ cls
 
 rem Discord flavor selection menu
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo.
 echo Select Discord version:
 echo 1. Discord Stable (Default Client)
@@ -104,7 +104,7 @@ cls
 
 rem Let the user make sure all info is correct before continuing
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo.
 echo Confirm the following information before continuing.
 echo.
@@ -174,7 +174,7 @@ echo.
 echo OpenAsar should be installed! You can check by looking for an "OpenAsar" option in your Discord settings.
 echo Not installed? Try restarting Discord, running the script again, joining the OpenAsar Discord or contacting @greenman36 on Discord.
 echo.
-echo Installer updated and maintained by @greenman36
+echo Installer updated by @aaronliu and maintained by @greenman36
 echo Also check out some of my other projects at [GreenMan36.github.io](https://GreenMan36.github.io)
 echo.
 
