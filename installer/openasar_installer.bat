@@ -117,14 +117,17 @@ pause
 echo Installing OpenAsar... (ignore any flashes, this is a download progress bar)
 echo.
 echo 1. Backing up original app.asar to app.asar.backup
-rem This is done multiple times because there's multiple client mods that use different file names and we support those
-copy /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.backup" > nul 2> nul
+rem Popular client mods use these files as the asar to read discord from
 if exist "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar" (
-    copy /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.backup" > nul 2> nul
-)
-if exist "%localappdata%\%discordApp%\app-%version%\resources\app.asar.orig" (
-    copy /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.orig" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.backup" > nul 2> nul
-)
+    echo Detected Vencord installation, installing to _app.asar instead.
+    move /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar" "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar.backup" >nul
+) else ( if exist "%localappdata%\%discordApp%\app-%version%\resources\app.orig.asar" (
+    echo Detected Replugged installation, installing to app.orig.asar instead.
+    move /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.orig.asar" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.orig.asar.backup" >nul
+) else (
+    rem No mod known
+    move /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.backup" >nul
+))
 
 rem If the copy command failed, exit
 if errorlevel 1 (
@@ -140,14 +143,14 @@ if errorlevel 1 (
 rem Download OpenAsar, change the color so the download bar blends in
 color 36
 echo 2. Downloading OpenAsar
-powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.asar"" > nul 2> nul
-
-if exist "%localappdata%\%discordApp%\app-%version%\resources\_app.asar" (
-    copy "%localappdata%\%discordApp%\app-%version%\resources\app.asar" "%localappdata%\%discordApp%\app-%version%\resources\_app.asar"
-)
-if exist "%localappdata%\%discordApp%\app-%version%\resources\app.asar.orig" (
-    copy "%localappdata%\%discordApp%\app-%version%\resources\app.asar" "%localappdata%\%discordApp%\app-%version%\resources\app.asar.orig"
-)
+if exist "%localappdata%\%discordApp%\app-%version%\resources\_app.asar.backup" (
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\_app.asar"" >nul
+) else ( if exist "%localappdata%\%discordApp%\app-%version%\resources\app.orig.asar.backup" (
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.orig.asar"" >nul
+) else (
+    rem No mod known
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.asar"" >nul
+))
 
 rem If the download command failed, exit
 if errorlevel 1 (
