@@ -4,40 +4,9 @@ rem This is required for the for loops to work properly
 setlocal enabledelayedexpansion
 
 rem lil animation, can be skipped by pressing any key 3 times
-cls
-echo.
-echo Installer updated by @aaronliu and maintained by @GreenMan36
-echo.
-echo ####  ###  #### #   #      ##  ####  ##  ###  
-echo #  #  #  # #    ##  #     #  # #    #  # #  # 
-echo #  #  ###  #### # # #     #### #### #### ###  
-echo #  #  #    #    #  ##     #  #    # #  # #  # 
-echo ####  #    #### #   #  #  #  # #### #  # #  # 
-echo.
-C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
-cls
-echo.
-echo Installer updated by @aaronliu and maintained by @GreenMan36
-echo.
-echo ====  ===  ==== =   =      ==  ====  ==  ===  
-echo =  =  =  = =    ==  =     =  = =    =  = =  = 
-echo =  =  ===  ==== = = =     ==== ==== ==== ===  
-echo =  =  =    =    =  ==     =  =    = =  = =  = 
-echo ====  =    ==== =   =  =  =  = ==== =  = =  = 
-echo.
-C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
-cls
-echo.
-echo Installer updated by @aaronliu and maintained by @GreenMan36
-echo.
-echo ....  ...  .... .   .      ..  ....  ..  ...  
-echo .  .  .  . .    ..  .     .  . .    .  . .  . 
-echo .  .  ...  .... . . .     .... .... .... ...  
-echo .  .  .    .    .  ..     .  .    . .  . .  . 
-echo ....  .    .... .   .  .  .  . .... .  . .  . 
-echo.
-C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
-cls
+call :displayText "#"
+call :displayText "="
+call :displayText "."
 
 rem Discord flavor selection menu
 echo.
@@ -210,5 +179,23 @@ echo.
 echo.
 pause
 color
+
+goto :eof
+
+rem Subroutine to display text
+:displayText
+set "c=%~1"
+echo.
+echo Installer updated by @aaronliu and maintained by @GreenMan36
+echo.
+echo !c!!c!!c!!c!  !c!!c!!c!  !c!!c!!c!!c! !c!   !c!      !c!!c!  !c!!c!!c!!c!  !c!!c!  !c!!c!!c!  
+echo !c!  !c!  !c!  !c! !c!    !c!!c!  !c!     !c!  !c! !c!    !c!  !c! !c!  !c! 
+echo !c!  !c!  !c!!c!!c!  !c!!c!!c!!c! !c! !c! !c!     !c!!c!!c!!c! !c!!c!!c!!c! !c!!c!!c!!c! !c!!c!!c!  
+echo !c!  !c!  !c!    !c!    !c!  !c!!c!     !c!  !c!    !c! !c!  !c! !c!  !c! 
+echo !c!!c!!c!!c!  !c!    !c!!c!!c!!c! !c!   !c!  !c!  !c!  !c! !c!!c!!c!!c! !c!  !c! !c!  !c! 
+echo.
+C:\Windows\System32\TIMEOUT.exe /t 1 > nul 2> nul
+cls
+goto :eof
 
 exit /b
