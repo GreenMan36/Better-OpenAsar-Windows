@@ -69,20 +69,41 @@ if "%selection%"=="1" (
 )
 
 
-rem Finds the latest version folder for the selected Discord flavor
-set "latestVersion="
+rem Finds the latest major, minor, and patch version numbers for the selected Discord flavor
+set "latestMajor=0"
+set "latestMinor=0"
+set "latestPatch=0"
 
 for /f "delims=" %%d in ('dir /b /ad /on "%localappdata%\%discordApp%\app-*"') do (
     set "folderName=%%~nxd"
-    rem just the version number (without the app- prefix)
-    set "version=!folderName:~4!"
-    if "!version!" gtr "!latestVersion!" (
-        set "latestVersion=!version!"
+    rem Split the version number into major, minor, and patch
+    for /f "tokens=1-3 delims=.-" %%a in ("!folderName:~4!") do (
+        set /a "major=%%a"
+        set /a "minor=%%b"
+        set /a "patch=%%c"
+        rem Compare numerically
+        if !major! gtr !latestMajor! (
+            set "latestMajor=!major!"
+            set "latestMinor=!minor!"
+            set "latestPatch=!patch!"
+        ) else if !major! equ !latestMajor! (
+            if !minor! gtr !latestMinor! (
+                set "latestMinor=!minor!"
+                set "latestPatch=!patch!"
+            ) else if !minor! equ !latestMinor! (
+                if !patch! gtr !latestPatch! (
+                    set "latestPatch=!patch!"
+                )
+            )
+        )
     )
 )
 
+rem Construct the latest version string
+set "latestVersion=!latestMajor!.!latestMinor!.!latestPatch!"
+
 rem If no version folders are found, exit. We can't continue
-if not defined latestVersion (
+if "!latestVersion!"=="0.0.0" (
     color 04
     echo No version folders found.
     color
@@ -143,23 +164,28 @@ if errorlevel 1 (
 rem Download OpenAsar, change the color so the download bar blends in
 color 36
 echo 2. Downloading OpenAsar
-if exist "%localappdata%\%discordApp%\app-%version%\resources\_app.asar.backup" (
-    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\_app.asar"" >nul
-) else ( if exist "%localappdata%\%discordApp%\app-%version%\resources\app.orig.asar.backup" (
-    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.orig.asar"" >nul
+if exist "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar.backup" (
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%latestVersion%\resources\_app.asar"" >nul
+) else ( if exist "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.orig.asar.backup" (
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.orig.asar"" >nul
 ) else (
     rem No mod known
-    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%version%\resources\app.asar"" >nul
+    powershell -Command "Invoke-WebRequest https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar -OutFile "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar"" >nul
 ))
 
-rem If the download command failed, exit
-if errorlevel 1 (
+rem Check if the download command failed
+if not %errorlevel%==0 (
     color 04
     echo Error: Failed to download and replace the asar file.
-    echo Please check your internet connection. Also make sure that the Discord client is closed.
-    echo.
-    color
-    pause
+    echo Attempting to restore backup...
+    move /y "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar.backup" "%localappdata%\%discordApp%\app-%latestVersion%\resources\app.asar" >nul
+
+    if not %errorlevel%==0 (
+        echo Error: Failed to restore the backup. Check %localappdata%\%discordApp%\app-%latestVersion%\resources\ and make sure to restore the .backup file to .asar for Discord to be able to launch again.
+        pause
+    ) else (
+        echo Backup restored successfully. Discord was not modded but should be able to be launched.
+    )
     exit
 )
 
